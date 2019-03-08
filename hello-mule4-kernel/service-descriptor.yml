@@ -1,0 +1,21 @@
+
+name: hellp mule 4 kernel app
+description: hello-mule4-kernel-app
+organization: "Cloud Platform Engineering"
+
+notifications:
+  email: micros@atlassian.com
+
+links:
+  binary:
+    name: "${DOCKER_IMAGE}"
+    type: docker
+    tag: "${DOCKER_TAG}"
+  healthcheck:
+    uri: /healthcheck
+  source:
+    url: ssh://git@stash.atlassian.com:7997/moe/mule4-kernel-hello-app.git
+
+scaling:
+  min: 1
+  instance: t2.medium

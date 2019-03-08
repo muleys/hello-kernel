@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0993e3d7-0acd-403c-89d3-ee46288d299d" >
+		<http:listener-connection host="0.0.0.0" port="8080" protocol="HTTPS">
+			<tls:context >
+				<tls:key-store type="jks" path="mulesoft-finance-keystore.jks" keyPassword="Io3NQwO6NolAlaTk" password="Io3NQwO6NolAlaTk" />
+			</tls:context>
+		</http:listener-connection>
+		
+	</http:listener-config>
+	<flow name="hello-mule4-kernelFlow" doc:id="f12f3c60-762c-4680-89c7-df61eb8f036a" >
+		<scheduler doc:name="Scheduler" doc:id="3e11a8a1-e790-44c2-a4c5-aed07032876a" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="20000"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="1da8893b-d60e-49c2-8d6f-5d04397d3a36" message="Mule 4 Kernel Says :  I am Up"/>
+	</flow>
+	<flow name="hello-mule4-kernelFlow1" doc:id="0a77037a-9686-43e3-923c-c679edb2ee56" >
+		<http:listener doc:name="Listener" doc:id="4906dc1c-afc8-4f1e-a13a-5a3f5062ee2e" config-ref="HTTP_Listener_config" path="/healthcheck"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9ab7e31d-0aa1-4619-8a11-10b8b6de9bc2" message="Dont hit him, I am up!!"/>
+	</flow>
+</mule>
